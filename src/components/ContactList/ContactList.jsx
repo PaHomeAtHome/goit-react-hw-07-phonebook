@@ -1,13 +1,17 @@
 import { useSelector } from 'react-redux';
 import { ContactListComponent } from 'components/ContactListComponent/ContactListComponent';
 
+import { useGetContactByNameQuery } from 'redux/API/api';
+
 export const ContactList = () => {
-  const contacts = useSelector(state => state.contacts.items);
+  const { data, error, isLoading } = useGetContactByNameQuery('contacts');
   const filter = useSelector(state => state.filter.filter);
   return (
     <ul>
-      {contacts &&
-        contacts
+      {isLoading && <p>Loading...</p>}
+      {error && <p>{error}</p>}
+      {data &&
+        data
           .filter(contact =>
             contact.name.toLowerCase().includes(filter.toLowerCase())
           )

@@ -9,7 +9,7 @@ export const ContactListComponent = ({ contact }) => {
   return (
     <Element>
       <p>
-        {contact.name}: {contact.number}
+        {contact.name}: {contact.phone}
       </p>
       <Button type="button" onClick={() => dispatch(removeContact(contact.id))}>
         Delete
@@ -21,7 +21,7 @@ export const ContactListComponent = ({ contact }) => {
 ContactListComponent.propTypes = {
   contact: PropTypes.shape({
     name: PropTypes.string,
-    number: PropTypes.string,
+    phone: PropTypes.string,
     id: PropTypes.string,
   }),
 };
