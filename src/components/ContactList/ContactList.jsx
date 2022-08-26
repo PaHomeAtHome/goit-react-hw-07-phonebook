@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
 import { ContactListComponent } from 'components/ContactListComponent/ContactListComponent';
 
-import { useGetContactByNameQuery } from 'redux/API/api';
+import { useGetContactByNameQuery } from 'redux/services/API/api';
 
 export const ContactList = () => {
   const { data, error, isLoading } = useGetContactByNameQuery('contacts');

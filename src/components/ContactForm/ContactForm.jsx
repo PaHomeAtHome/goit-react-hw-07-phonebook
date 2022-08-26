@@ -1,8 +1,7 @@
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import { useDispatch } from 'react-redux';
-import { addContact } from 'redux/actions/actions';
 import { ErrorText } from './ContactFormStyled';
+import { useAddContactMutation } from 'redux/services/API/api';
 
 const NAME_INPUT_TITLE =
   "Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan";
@@ -26,13 +25,16 @@ const validationSchema = Yup.object({
 });
 
 export const ContactForm = () => {
-  const dispatch = useDispatch();
+  const [addContact] = useAddContactMutation();
 
   return (
     <Formik
       initialValues={{ name: '', number: '' }}
       validationSchema={validationSchema}
-      onSubmit={value => dispatch(addContact(value))}
+      onSubmit={value => {
+        console.log(value);
+        addContact(value);
+      }}
       enableReinitialize
     >
       <Form autoComplete="off">

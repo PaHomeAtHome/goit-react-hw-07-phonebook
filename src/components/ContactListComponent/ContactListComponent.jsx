@@ -1,17 +1,21 @@
 import PropTypes from 'prop-types';
 
-import { useDispatch } from 'react-redux';
-import { removeContact } from 'redux/actions/actions';
 import { Element, Button } from './ContactListComponentStyled';
+import { useDeleteContactMutation } from 'redux/services/API/api';
+import { useCallback } from 'react';
 
 export const ContactListComponent = ({ contact }) => {
-  const dispatch = useDispatch();
+  const [deleteContact] = useDeleteContactMutation();
+  const onDelete = useCallback(
+    contact => deleteContact(contact),
+    [deleteContact]
+  );
   return (
     <Element>
       <p>
         {contact.name}: {contact.phone}
       </p>
-      <Button type="button" onClick={() => dispatch(removeContact(contact.id))}>
+      <Button type="button" onClick={() => onDelete(contact)}>
         Delete
       </Button>
     </Element>
