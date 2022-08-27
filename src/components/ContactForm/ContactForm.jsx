@@ -1,7 +1,7 @@
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { ErrorText } from './ContactFormStyled';
-import { useAddContactMutation } from 'redux/services/API/api';
+import { useAddContactMutation } from 'redux/API/api';
 
 const NAME_INPUT_TITLE =
   "Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan";
@@ -21,7 +21,7 @@ const FormError = ({ name }) => {
 
 const validationSchema = Yup.object({
   name: Yup.string().required(),
-  number: Yup.string().required(),
+  phone: Yup.string().required(),
 });
 
 export const ContactForm = () => {
@@ -29,12 +29,9 @@ export const ContactForm = () => {
 
   return (
     <Formik
-      initialValues={{ name: '', number: '' }}
+      initialValues={{ name: '', phone: '' }}
       validationSchema={validationSchema}
-      onSubmit={value => {
-        console.log(value);
-        addContact(value);
-      }}
+      onSubmit={value => addContact(value)}
       enableReinitialize
     >
       <Form autoComplete="off">
@@ -52,16 +49,16 @@ export const ContactForm = () => {
           </div>
         </div>
         <div>
-          <label htmlFor="number">Number</label>
+          <label htmlFor="phone">Number</label>
           <div>
             <Field
-              name="number"
+              name="phone"
               type="tel"
               placeholder="Number"
               pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
               title={NUMBER_INPUT_TITLE}
             />
-            <FormError name="number" />
+            <FormError name="phone" />
           </div>
         </div>
         <button type="submit">Add contact</button>

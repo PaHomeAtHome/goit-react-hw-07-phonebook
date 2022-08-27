@@ -1,21 +1,17 @@
 import PropTypes from 'prop-types';
 
 import { Element, Button } from './ContactListComponentStyled';
-import { useDeleteContactMutation } from 'redux/services/API/api';
-import { useCallback } from 'react';
+import { useDeleteContactMutation } from 'redux/API/api';
 
 export const ContactListComponent = ({ contact }) => {
   const [deleteContact] = useDeleteContactMutation();
-  const onDelete = useCallback(
-    contact => deleteContact(contact),
-    [deleteContact]
-  );
+
   return (
     <Element>
       <p>
         {contact.name}: {contact.phone}
       </p>
-      <Button type="button" onClick={() => onDelete(contact)}>
+      <Button type="button" onClick={() => deleteContact(contact)}>
         Delete
       </Button>
     </Element>

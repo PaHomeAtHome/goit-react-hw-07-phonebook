@@ -1,10 +1,11 @@
 import { useSelector } from 'react-redux';
 import { ContactListComponent } from 'components/ContactListComponent/ContactListComponent';
 
-import { useGetContactByNameQuery } from 'redux/services/API/api';
+import { useGetContactByNameQuery } from 'redux/API/api';
 
 export const ContactList = () => {
-  const { data, error, isLoading } = useGetContactByNameQuery('contacts');
+  const { data, error, isLoading } = useGetContactByNameQuery();
+
   const filter = useSelector(state => state.filter.filter);
   return (
     <ul>

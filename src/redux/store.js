@@ -2,7 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import { filterReducer } from './reducers/reducers';
 import { combineReducers } from 'redux';
 
-import { reducerPath, reducer, middleware } from './services/API/api';
+import { reducerPath, reducer, middleware } from './API/api';
 
 const reducers = combineReducers({
   filter: filterReducer,
