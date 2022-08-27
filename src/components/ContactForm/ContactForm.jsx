@@ -25,13 +25,25 @@ const validationSchema = Yup.object({
 });
 
 export const ContactForm = () => {
-  const [addContact] = useAddContactMutation();
+  const [addContact, { isLoading }] = useAddContactMutation();
+
+  const handleSubmit = async (value, resetForm) => {
+    await addContact(value)
+      .then(response => {
+        resetForm();
+        return response;
+      })
+      .catch(error => {
+        console.log(error);
+        return error;
+      });
+  };
 
   return (
     <Formik
       initialValues={{ name: '', phone: '' }}
       validationSchema={validationSchema}
-      onSubmit={value => addContact(value)}
+      onSubmit={(value, { resetForm }) => handleSubmit(value, resetForm)}
       enableReinitialize
     >
       <Form autoComplete="off">
@@ -61,7 +73,9 @@ export const ContactForm = () => {
             <FormError name="phone" />
           </div>
         </div>
-        <button type="submit">Add contact</button>
+        {(!isLoading && <button type="submit">Add contact</button>) || (
+          <p>Adding contact...</p>
+        )}
       </Form>
     </Formik>
   );

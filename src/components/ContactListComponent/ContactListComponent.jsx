@@ -4,16 +4,20 @@ import { Element, Button } from './ContactListComponentStyled';
 import { useDeleteContactMutation } from 'redux/API/api';
 
 export const ContactListComponent = ({ contact }) => {
-  const [deleteContact] = useDeleteContactMutation();
+  const [deleteContact, { status }] = useDeleteContactMutation();
 
   return (
     <Element>
-      <p>
-        {contact.name}: {contact.phone}
-      </p>
-      <Button type="button" onClick={() => deleteContact(contact)}>
-        Delete
-      </Button>
+      {(status === 'uninitialized' && (
+        <>
+          <p>
+            {contact.name}: {contact.phone}
+          </p>
+          <Button type="button" onClick={() => deleteContact(contact)}>
+            Delete
+          </Button>
+        </>
+      )) || <p>Deleting...</p>}
     </Element>
   );
 };
