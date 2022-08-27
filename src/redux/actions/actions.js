@@ -1,5 +1,4 @@
 import { createAction } from '@reduxjs/toolkit';
-import { nanoid } from 'nanoid';
 
 export const changeFilter = createAction(
   'filter/filterChanged',
@@ -7,20 +6,6 @@ export const changeFilter = createAction(
     return {
       payload: {
         value,
-      },
-    };
-  }
-);
-
-export const addContact = createAction(
-  'contacts/contactAdd',
-  function prepare(value) {
-    const { number, name } = value;
-    return {
-      payload: {
-        name,
-        number,
-        id: nanoid(),
       },
     };
   }
